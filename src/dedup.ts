@@ -77,7 +77,7 @@ async function main() {
   
   console.log(processed.slice(100, 110))
 
-  const logTransform = processed.map(e => [e[0], parseFloat(Math.log(e[1]).toFixed(5))]);
+  const logTransform = processed.map(e => [e[0], Math.log(e[1]).toFixed(5)]);
 
   console.log(logTransform.slice(100, 110))
 
