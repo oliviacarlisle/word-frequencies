@@ -1,0 +1,24 @@
+{
+  "name": "word-frequencies",
+  "version": "1.0.0",
+  "description": "English language word frequency data from Google Ngram Exports ",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oliviacarlisle/word-frequencies.git"
+  },
+  "author": "Olivia Carlisle",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/oliviacarlisle/word-frequencies/issues"
+  },
+  "homepage": "https://github.com/oliviacarlisle/word-frequencies#readme",
+  "devDependencies": {
+    "@types/node": "^22.7.3",
+    "typescript": "^5.6.2"
+  }
+}
