@@ -5,6 +5,9 @@
  * - have a count >= 10
  * 
  * Additionally, normalize all words to lowercase.
+ * 
+ * The output files will contain duplicates since the original data 
+ * is case-sensitive.
 */
 
 import { createReadStream, createWriteStream } from 'node:fs';
