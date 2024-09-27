@@ -71,11 +71,15 @@ async function main() {
 
   const allowedGuesses = new Set(words);
 
-  const processed = combineDuplicates(arr)
+  const processed: [string, number][] = combineDuplicates(arr)
     .filter(e => allowedGuesses.has(e[0]))
     .map(e => [e[0], e[1][1]]);
   
   console.log(processed.slice(100, 110))
+
+  const logTransform = processed.map(e => [e[0], (Math.log(e[1]) * 1000).toFixed(0)]);
+
+  console.log(logTransform.slice(100, 110))
 
   // write to output file
   // Convert the array of arrays into a string where each inner array is a line
@@ -84,6 +88,12 @@ async function main() {
     .join('\n'); // Join each line with a newline character
 
   writeFileSync(outputFile, fileContent, 'utf8');
+
+  const fileContentLog: string = logTransform
+    .map(innerArray => innerArray.join(',')) // Convert each inner array to a comma-separated string
+    .join('\n'); // Join each line with a newline character
+
+    writeFileSync(`${outputFile}-log`, fileContentLog, 'utf8');
 
   console.log('File written successfully!');
 }
