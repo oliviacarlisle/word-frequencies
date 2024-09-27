@@ -6,12 +6,13 @@
  * Additionally, exclude all words that are not allowed guesses in Wordle.
 */
 
-import { createReadStream, createWriteStream } from 'node:fs';
+import { createReadStream, writeFileSync } from 'node:fs';
 import { createInterface } from 'node:readline';
 
 import { words } from './wordleGuesses';
 
-const filePath = './out/output'
+const inputFile = './data/concatenated';
+const outputFile = './out/processed';
 
 function combineDuplicates(arr: [string, number, number][]) {
 
@@ -59,32 +60,32 @@ async function readLines(inputFilePath: string) {
   }
 
   allLines.sort((a, b) => b[2] - a[2]);
-  
-  console.log(allLines.slice(0, 20));
-
-  console.log(`${inputFilePath} processed successfully`);
 
   return allLines;
 }
 
 async function main() {
-  const arr = await readLines(filePath);
-  
+  const arr = await readLines(inputFile);
 
-  const combined = combineDuplicates(arr);
-
-  console.log(combined.slice(0, 10));
-
-  console.log(combined.length);
+  console.log(`${inputFile} read successfully`);
 
   const allowedGuesses = new Set(words);
 
-  const filtered = combined.filter(e => allowedGuesses.has(e[0]));
+  const processed = combineDuplicates(arr)
+    .filter(e => allowedGuesses.has(e[0]))
+    .map(e => [e[0], e[1][1]]);
+  
+  console.log(processed.slice(100, 110))
 
-  console.log(filtered.length);
+  // write to output file
+  // Convert the array of arrays into a string where each inner array is a line
+  const fileContent: string = processed
+    .map(innerArray => innerArray.join(',')) // Convert each inner array to a comma-separated string
+    .join('\n'); // Join each line with a newline character
 
-  console.log(filtered.slice(200, 210))
+  writeFileSync(outputFile, fileContent, 'utf8');
+
+  console.log('File written successfully!');
 }
 
 main();
-
